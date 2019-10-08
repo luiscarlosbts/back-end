@@ -3,7 +3,7 @@ API_BTS Admin is an API to get information from a database. Through the endpoint
 ## Installation
 To run the API we need to do some things first set the API settings and set the DB in your local.
 #### Requirements
-This API work over **Node.js**, version ``10.16.3``  
+This API work over **Node.js**, version ``10.16.3``, and npm version ``6.9.0``  
 If  you don't have it, here is the link to download [Node.js](https://nodejs.org/es/)
   
 ### Steps
