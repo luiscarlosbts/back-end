@@ -32,3 +32,24 @@ The different endpoints for database are build in the next form:
 ````
 http://localhost/api/table-name
 ````
+## Scaffolding
+   ![](scaffolding.PNG)
+- ``config/`` **:** Main configuration of API
+    - ``api.js`` **:** Define the router for the routes with functionality
+    - ``constants.js`` **:** Environment variables, that we are using a along the app.
+    - ``db.js`` **:** Settings for database connection
+- ``daos/`` **:** All database methods.
+    - ``exampleDao.js`` **:** SQL query for DB operation.  
+- ``filters/`` **:** Middleware, general validators 
+- ``models/`` **:** Database models
+- ``resources/`` **:** Controllers for the different functions
+- ``routers/`` **:** Routes for the files that are needed for the different functionality. API Routes
+- ``services/`` **:** Files which consumes the Database
+- ``test/`` **:** Test code for unit test
+- ``utils/`` **:** Extra methods
+- ``validationSchemas/`` **:** JSON schemas to validate the data
+- ``README.md`` **:** Introductory text about the app
+- ``index.js`` **:** Main file the runs and call the different functions
+- ``loadenv.js`` **:** Loader for environment variables
+- ``.env`` **:** File where we define the environment variables
+- ``package.json`` **:** Dependencies for the project
