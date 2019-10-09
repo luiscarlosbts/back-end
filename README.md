@@ -7,9 +7,9 @@ This API work over **Node.js**, version ``10.16.3``, and npm version ``6.9.0``
 If  you don't have it, here is the link to download [Node.js](https://nodejs.org/es/)
   
 ### Steps
-1. Download the repository. You need to clone the repo in your local, so paste this link in your CommandLine  
+1. Download the repository. You need to clone the repo in your local, so paste this command in your CommandLine  
     ````
-    https://gitlab.buetrailsoftware/api.git
+    git clone git@gitlab.bluetrail.software:bts-platform/bts_internship_2019_be_app.git
     ````
 2. Go to the project folder.  
 3. Run the  command ``npm install`` in your command line.
