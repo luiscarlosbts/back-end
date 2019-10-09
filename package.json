@@ -1,0 +1,29 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "API_BTS Admin is an API to get information from a database. Through the endpoints you can retrieve information for the different tables. Also you can use the HTTP methods like GET, POST, PUT and DELETE, to execute the actions that you need.\r ## Installation\r To run the API we need to do some things first set the API settings and set the DB in your local.\r #### Requirements\r This API work over **Node.js**, version ``10.16.3``  \r If  you don't have it, here is the link to download [Node.js](https://nodejs.org/es/)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luiscarlosbts/back-end.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luiscarlosbts/back-end/issues"
+  },
+  "homepage": "https://github.com/luiscarlosbts/back-end#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "log4js": "^5.2.1",
+    "pg": "^7.12.1"
+  }
+}
