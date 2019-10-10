@@ -4,7 +4,7 @@
   "description": "API_BTS Admin is an API to get information from a database. Through the endpoints you can retrieve information for the different tables. Also you can use the HTTP methods like GET, POST, PUT and DELETE, to execute the actions that you need.\r ## Installation\r To run the API we need to do some things first set the API settings and set the DB in your local.\r #### Requirements\r This API work over **Node.js**, version ``10.16.3``  \r If  you don't have it, here is the link to download [Node.js](https://nodejs.org/es/)",
   "main": "index.js",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "scripts": {
     "test": "mocha"

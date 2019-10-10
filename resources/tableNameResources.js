@@ -18,8 +18,8 @@ async function getRecords(req, res) {
   res.set('Content-Type', 'application/json');
   try {
     // get the records from the database
-    const result = await tableNameService();
-    logger.debug('sending the users from the getUsers resource ');
+    const result = await tableNameService.getRecords();
+    logger.debug('sending the records from the getRecords resource ');
     res.send({data: result, status: 'success', message: 'records found'});
   } catch (error) {
     logger.debug('sending the error trying to get the', error);
@@ -28,4 +28,26 @@ async function getRecords(req, res) {
   }
 }
 
-module.exports = getRecords
+/**
+* getRecordById resource
+* use the getRecordById service to get the record from the table 'tabla' from the database with certain id
+* @param {Object} req - client request that contains token
+* @param {Object} res - client response in case toke is invalid or expired
+* @return {object} a JSON response with database records or an error response
+**/
+async function getRecordById(req, res) {
+  logger.debug('getUsers resource');
+  res.set('Content-Type', 'application/json');
+  try {
+    // get the records from the database
+    const result = await tableNameService.getRecordById(req.params.id);
+    logger.debug('sending the records from the getRecords resource ');
+    res.send({data: result, status: 'success', message: 'records found'});
+  } catch (error) {
+    logger.debug('sending the error trying to get the', error);
+    res.status(400);
+    res.send({ status: 'error', message: 'Records not found' });
+  }
+}
+
+module.exports = {getRecords,getRecordById}
