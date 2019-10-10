@@ -3,8 +3,8 @@
 const pool = require('../config/db');
 
 /**
-* getUsers method
-* get all users from the database
+* getRecords method
+* get all records from the table 'tabla' from the database
 * @return {object} database records
 **/
 async function getRecords() {
@@ -13,7 +13,6 @@ async function getRecords() {
       pool.end()
       resolve(res.rows)
     })
-
   });
 }
 

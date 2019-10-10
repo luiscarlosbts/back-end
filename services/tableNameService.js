@@ -7,8 +7,8 @@ const logger = log4js.getLogger('Service getUser.js');
 logger.level = 'debug';
 
 /**
-* getUsers service
-* use the userDaos to get all users from the database
+* getRecords service
+* use the tableNameDao to get all records from the table 'tabla' from the database
 * @return {object} the database records gotten or an error
 **/
 async function getRecords() {
