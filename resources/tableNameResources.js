@@ -19,8 +19,8 @@ async function getRecords(req, res) {
   try {
     // get the users from the database
     const result = await tableNameService();
-    logger.debug('sending the users from the getUsers resource '+result);
-    res.send({data: {result}, status: 'success', message: 'Users found'});
+    logger.debug('sending the users from the getUsers resource ');
+    res.send({data: result, status: 'success', message: 'Users found'});
   } catch (error) {
     logger.debug('sending the error trying to get the', error);
     res.status(404);
