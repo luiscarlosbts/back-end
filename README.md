@@ -1,7 +1,7 @@
 # Api for BTS Admin
-API_BTS Admin is an API to get information from a database. Through the endpoints you can retrieve information for the different tables. Also you can use the HTTP methods like GET, POST, PUT and DELETE, to execute the actions that you need.
+API_BTS Admin is an API to get information from a database. Through the endpoints you can retrieve information for the different tables. Also, you can use the HTTP methods like GET, POST, PUT and DELETE, to execute the actions that you need.
 ## Installation
-To run the API we need to do some things first set the API settings and set the DB in your local.
+To run the API we need to do some things; first, set the API settings and set the DB in your local.
 #### Requirements
 This API work over **Node.js**, version ``10.16.3``, and npm version ``6.9.0``  
 If  you don't have it, here is the link to download [Node.js](https://nodejs.org/es/)
@@ -17,11 +17,11 @@ If  you don't have it, here is the link to download [Node.js](https://nodejs.org
 5. Now, got the folder **DB** and run the script ``BTSAdminSchema.sql``
 6. Run the ``BTSAdmin.sql``   
 
-Now you have the API ready.
+Now, you have the API ready.
 ## First use
 1. Open your console inside the project folder.
 2. Start the application using this command: ```node index.js```.
-3. Make a request. paste the next endpoint in your browser.  
+3. Make a request. Paste the next endpoint in your browser.  
     ````
     http://localhost:3000/api/employees/
     ````
