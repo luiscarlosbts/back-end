@@ -32,3 +32,6 @@ The different endpoints for database are build in the next form:
 ````
 http://localhost/api/table-name
 ````
+## Testing 
+To run the tests for the API, open a new terminal and type the next code, ``npm run test``.  
+This will run the test for the index.js, that means for all the endpoints of API.
