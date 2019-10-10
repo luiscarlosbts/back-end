@@ -34,22 +34,21 @@ http://localhost/api/table-name
 ````
 ## Scaffolding
    ![](scaffolding.PNG)
-- ``config/`` **:** Main configuration of API
+- ``config/`` **:** Main configuration (Settings)
     - ``api.js`` **:** Define the router for the routes with functionality
     - ``constants.js`` **:** Environment variables, that we are using a along the app.
-    - ``db.js`` **:** Settings for database connection
-- ``daos/`` **:** All database methods.
-    - ``exampleDao.js`` **:** SQL query for DB operation.  
+    - ``db.js`` **:** make the database connection
+- ``daos/`` **:** All database methods.  
 - ``filters/`` **:** Middleware, general validators 
 - ``models/`` **:** Database models
-- ``resources/`` **:** Controllers for the different functions
-- ``routers/`` **:** Routes for the files that are needed for the different functionality. API Routes
-- ``services/`` **:** Files which consumes the Database
+- ``resources/`` **:** Main logic. Validations and responses
+- ``routers/`` **:** Routes for the files that are needed for the different functionality. API Routes (Endpoints)
+- ``services/`` **:** Bussines logic. Files which consumes the Database
 - ``test/`` **:** Test code for unit test
 - ``utils/`` **:** Extra methods
 - ``validationSchemas/`` **:** JSON schemas to validate the data
 - ``README.md`` **:** Introductory text about the app
-- ``index.js`` **:** Main file the runs and call the different functions
+- ``index.js`` **:** Main file 
 - ``loadenv.js`` **:** Loader for environment variables
 - ``.env`` **:** File where we define the environment variables
 - ``package.json`` **:** Dependencies for the project
