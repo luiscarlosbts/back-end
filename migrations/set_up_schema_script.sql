@@ -80,7 +80,9 @@ CREATE TABLE company_fields (
     name TEXT NOT NULL,
     is_approved BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- added deleted_at
+    deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE company_roles (
@@ -88,7 +90,9 @@ CREATE TABLE company_roles (
     name TEXT NOT NULL,
     is_approved BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- added deleted_at
+    deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE company_regions (
@@ -101,7 +105,8 @@ CREATE TABLE company_regions (
 CREATE TABLE company_locations (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    region_id INT NOT NULL REFERENCES company_regions(id),
+    -- added ON DELETE CASCADE
+    company_region_id INT NOT NULL REFERENCES company_regions(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -115,7 +120,6 @@ CREATE TABLE available_pto_days (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- New table
 CREATE TABLE pto_days_per_location (
     available_pto_day_id INT NOT NULL REFERENCES available_pto_days(id) ON DELETE CASCADE,
     company_location_id INT NOT NULL REFERENCES company_locations(id) ON DELETE CASCADE,
@@ -137,7 +141,9 @@ CREATE TABLE company_seniorities (
     name TEXT NOT NULL,
     is_approved BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- added deleted_at
+    deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE company_positions (
@@ -145,7 +151,9 @@ CREATE TABLE company_positions (
     name TEXT NOT NULL,
     is_approved BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- added deleted_at
+    deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE holiday_locations (
@@ -164,21 +172,21 @@ CREATE TABLE users (
     password TEXT NOT NULL,
     photo TEXT NOT NULL,
     description TEXT NOT NULL,
-    start_date DATE NOT NULL DEFAULT NOW(), -- NEW
-    end_date DATE, -- NEW
-    company_field_id INT NOT NULL REFERENCES company_fields(id) ON DELETE NO ACTION,
-    company_seniority_id INT NOT NULL REFERENCES company_seniorities(id) ON DELETE NO ACTION,
-    company_position_id INT NOT NULL REFERENCES company_positions(id) ON DELETE NO ACTION,
-    company_location_id INT NOT NULL REFERENCES company_locations(id) ON DELETE NO ACTION,
-    -- Removed available_pto_day_id field
+    start_date DATE NOT NULL DEFAULT NOW(),
+    end_date DATE,
+    company_field_id INT NOT NULL REFERENCES company_fields(id),
+    company_seniority_id INT NOT NULL REFERENCES company_seniorities(id),
+    company_position_id INT NOT NULL REFERENCES company_positions(id),
+    company_location_id INT NOT NULL REFERENCES company_locations(id),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     UNIQUE (email)
 );
 
 CREATE TABLE users_roles (
-    user_id INT NOT NULL REFERENCES users(id),
-    role_id INT NOT NULL REFERENCES company_roles(id),
+    -- added ON DELETE CASCADE FOR BOTH
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    role_id INT NOT NULL REFERENCES company_roles(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -207,7 +215,8 @@ CREATE TABLE user_skill_levels (
 
 CREATE TABLE user_experiences (
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES users(id),
+    -- added ON DELETE CASCADE
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     position TEXT NOT NULL,
     company TEXT NOT NULL,
     from_date DATE NOT NULL,
@@ -221,12 +230,14 @@ CREATE TABLE permission_categories (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- added deleted_at
+    deleted_at TIMESTAMPTZ
 );
 
 CREATE TABLE permissions (
     id SERIAL PRIMARY KEY,
-    permission_category_id INT NOT NULL REFERENCES permission_categories(id) ON DELETE CASCADE,
+    permission_category_id INT NOT NULL REFERENCES permission_categories(id),
     description TEXT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -267,12 +278,13 @@ CREATE TABLE projects (
     name TEXT NOT NULL,
     description TEXT NOT NULL,
     image TEXT,
-    start_date DATE NOT NULL, -- NEW
-    end_date DATE, -- NEW
-    client_id INT NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    -- made it able to have null client and ON DELETE SET NULL
+    client_id INT REFERENCES clients(id) ON DELETE SET NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    deleted_at TIMESTAMPTZ, -- NEW
+    deleted_at TIMESTAMPTZ,
     UNIQUE (name)
 );
 
@@ -299,15 +311,13 @@ CREATE TABLE users_projects (
     user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     project_id INT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
     project_role_id INT NOT NULL REFERENCES project_roles(id) ON DELETE CASCADE,
-    start_date DATE NOT NULL DEFAULT NOW(), -- NEW
-    -- Removed expected_hours_per_week
+    start_date DATE NOT NULL DEFAULT NOW(),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    deleted_at TIMESTAMPTZ, -- This determines user's (employee's) inactivity
+    deleted_at TIMESTAMPTZ, -- This determines user's (employee's) inactivity in the project
     UNIQUE (user_id, project_id, project_role_id) -- NEW
 );
 
--- New table
 CREATE TABLE user_project_hours (
     id SERIAL PRIMARY KEY,
     user_project_id INT NOT NULL REFERENCES users_projects(id) ON DELETE CASCADE,
@@ -396,11 +406,12 @@ CREATE TYPE status AS ENUM ('pending', 'accepted', 'declined');
 CREATE TABLE days_off_historic (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    days_off_type_id INT NOT NULL REFERENCES day_off_types(id) ON DELETE CASCADE,
+    -- added nullable and ON DELETE SET NULL
+    days_off_type_id INT REFERENCES day_off_types(id) ON DELETE SET NULL,
     from_date DATE NOT NULL,
     to_date DATE,
     total_work_days INT NOT NULL,
-    notes TEXT, -- NEW
+    notes TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -435,9 +446,11 @@ CREATE TABLE item_categories (
 
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
-    company_location_id INT REFERENCES company_locations(id) ON DELETE RESTRICT,
-    item_category_id INT NOT NULL REFERENCES item_categories(id) ON DELETE RESTRICT,
-    invoice_id INT REFERENCES invoices(id) ON DELETE RESTRICT,
+    -- added NOT NULL and removed ON DELETE RESTRICT
+    company_location_id INT NOT NULL REFERENCES company_locations(id),
+    item_category_id INT NOT NULL REFERENCES item_categories(id),
+    -- added ON DELETE SET NULL
+    invoice_id INT REFERENCES invoices(id) ON DELETE SET NULL,
     data JSON NOT NULL,
     purchase_date DATE NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -497,7 +510,8 @@ CREATE TABLE item_types (
 CREATE TABLE wishlists (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    item_subcategory_id INT NOT NULL REFERENCES item_subcategories(id) ON DELETE RESTRICT,
+    -- removed ON DELETE RESTRICT
+    item_subcategory_id INT NOT NULL REFERENCES item_subcategories(id),
     product TEXT NOT NULL,
     url TEXT NOT NULL,
     reason TEXT NOT NULL,
@@ -509,8 +523,9 @@ CREATE TABLE wishlists (
 CREATE TABLE office_wishlists (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    item_category_id INT NOT NULL REFERENCES item_categories(id) ON DELETE RESTRICT,
-    item_type_id INT NOT NULL REFERENCES item_types(id) ON DELETE RESTRICT,
+    -- removed ON DELETE RESTRICT from both
+    item_category_id INT NOT NULL REFERENCES item_categories(id),
+    item_type_id INT NOT NULL REFERENCES item_types(id),
     product TEXT NOT NULL,
     price NUMERIC(8,2) NOT NULL,
     url TEXT NOT NULL,

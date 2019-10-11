@@ -11,8 +11,8 @@
     },
     "scripts": {
         "test": "mocha",
-        "db-setup": "psql \\\\\\\"dbname=postgres user=postgres password=$npm_package_config_password host=localhost\\\\\\\" < migrations/set_up_schema_script.sql || psql \\\\\\\"dbname=postgres user=postgres password=%npm_package_config_password% host=localhost\\\\\\\" < migrations/set_up_schema_script.sql",
-        "db-clean": "psql \\\\\\\"dbname=postgres user=postgres password=$npm_package_config_password host=localhost\\\\\\\" < migrations/clean_schema_script.sql || psql \\\\\\\"dbname=postgres user=postgres password=%npm_package_config_password% host=localhost\\\\\\\" < migrations/clean_schema_script.sql"
+        "db-setup": "psql \"dbname=postgres user=postgres password=$npm_package_config_password host=localhost\" < ./migrations/set_up_schema_script.sql || psql \"dbname=postgres user=postgres password=%npm_package_config_password% host=localhost\" < ./migrations/set_up_schema_script.sql",
+        "db-clean": "psql \"dbname=postgres user=postgres password=$npm_package_config_password host=localhost\" < ./migrations/clean_schema_script.sql || psql \"dbname=postgres user=postgres password=%npm_package_config_password% host=localhost\" < ./migrations/clean_schema_script.sql"
     },
     "repository": {
         "type": "git",
