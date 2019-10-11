@@ -36,9 +36,9 @@ Now, you have the API ready to use.
    You have to receive a JSON with the information of all employees in database
 
 ## Endpoints
-The different endpoints that you can interact with are build in the next form:  
+The different endpoints that you can interact with, are build in the next form:  
 ````
-http://localhost/api/<endpoint>
+http://localhost:3000/api/<endpoint>
 ````
 ## Testing 
 To run the tests for the API, open a new terminal and type the next code, ``npm run test``.  
