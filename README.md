@@ -1,37 +1,47 @@
-# Api for BTS Admin
-API_BTS Admin is an API to get information from a database. Through the endpoints you can retrieve information for the different tables. Also, you can use the HTTP methods like GET, POST, PUT and DELETE, to execute the actions that you need.
+# BTS Admin Back-end
+This document specifies the process to set up the necessary environment to work with the back-end portion of the **BTS Admin** project. Through the endpoints you can retrieve information from the different tables. Also, you can use the HTTP methods like ``GET``, ``POST``, ``PUT`` and ``DELETE`` to execute the actions desired.
+
 ## Installation
-To run the API we need to do some things; first, set the API settings and set the DB in your local.
+To prepare the project we need to do a few things; first, define the project settings and set the DB in your local.
+
 #### Requirements
-This API work over **Node.js**, version ``10.16.3``, and npm version ``6.9.0``  
-If  you don't have it, here is the link to download [Node.js](https://nodejs.org/es/)
-  
+This API is built on **Node.js** as the main technology used, version ``10.16.3``, and npm version ``6.9.0``  
+If  you don't have it, here is the link to download [Node.js](https://nodejs.org/es/).  
+Before setting up the project you need to have ready your **postgres server** to create the database.
+
+The details on how to set up your own local PostgreSQL server are specified on the Database documentation in the ``README`` file.
+
 ### Steps
 1. Download the repository. You need to clone the repo in your local, so paste this command in your CommandLine  
     ````
     git clone git@gitlab.bluetrail.software:bts-platform/bts_internship_2019_be_app.git
     ````
-2. Go to the project folder.  
-3. Run the  command ``npm install`` in your command line.
-4. Create the ``.env`` file to set your environment variables, use the ``.env.default.example`` file to know about what you need. The api now is ready to be executed
-5. Now, got the folder **DB** and run the script ``BTSAdminSchema.sql``
-6. Run the ``BTSAdmin.sql``   
+1. Go to the project folder.
+1. Open the file ``package.json``, in the property ``config`` set your ``password`` for your local
+1. Run the command ``npm run db`` to create the database  
+1. Run the  command ``npm install`` in your command line to install all dependencies
+1. Create the ``.env.default`` file to set your environment variables, use the ``.env.default.example`` file to know about what you need.  
+The project now is ready to be executed
+ 
 
-Now, you have the API ready.
+Now, you have the API ready to use.
+
 ## First use
 1. Open your console inside the project folder.
 2. Start the application using this command: ```node index.js```.
-3. Make a request. Paste the next endpoint in your browser.  
+3. Make a request. Paste the next endpoint in your browser. (By default, the port to be used will be the 3000).
     ````
-    http://localhost:3000/api/employees/
+    http://localhost:3000/api/hello/
     ````
    You have to receive a JSON with the information of all employees in database
 
 ## Endpoints
-The different endpoints for database are build in the next form:  
+The different endpoints that you can interact with are build in the next form:  
 ````
-http://localhost/api/table-name
+http://localhost/api/<endpoint>
 ````
 ## Testing 
 To run the tests for the API, open a new terminal and type the next code, ``npm run test``.  
 This will run the test for the index.js, that means for all the endpoints of API.
+
+

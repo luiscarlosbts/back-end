@@ -3,9 +3,9 @@
 const apiApp = require('express')();
 
 // define the module from the routers folder
-const tableName = require('../routers/tableNameRouters');
+const routes = require('../routers/routes');
 
 // define which router will be used for an specific route
-apiApp.use('/tableName', tableName);
+apiApp.use('/api', routes);
 
 module.exports = apiApp;

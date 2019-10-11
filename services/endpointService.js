@@ -1,7 +1,7 @@
   
 'use strict';
 
-const tableNameDao = require('../daos/tableNameDao');
+const tableNameDao = require('../daos/endpointDao');
 const log4js = require('log4js');
 const logger = log4js.getLogger('Service getUser.js');
 logger.level = 'debug';

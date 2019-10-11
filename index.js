@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json({ limit: '25MB' }));
-app.use('/api', apiApp);
+app.use('/', apiApp);
 
 app.listen(config.APP_PORT, () => {
   logger.info(`Listen on port ${config.APP_PORT} in ${config.ENV} environment`);
