@@ -13,7 +13,18 @@ logger.level = 'debug';
 **/
 async function getRecords() {
   logger.debug('get records service');
-  return await tableNameDao()
+  return await tableNameDao.getRecords()
 }
 
-module.exports = getRecords;
+/**
+* getRecordById service
+* use the tableNameDao to get the selected record from the table 'tabla' from the database
+* @param {id} id 
+* @return {object} database record
+**/
+async function getRecordById(id) {
+  logger.debug('get records service');
+  return await tableNameDao.getRecordById(id)
+}
+
+module.exports = {getRecords,getRecordById};
