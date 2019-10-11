@@ -1,34 +1,39 @@
 {
-  "name": "back-end",
-  "version": "1.0.0",
-  "description": "API_BTS Admin is an API to get information from a database. Through the endpoints you can retrieve information for the different tables. Also you can use the HTTP methods like GET, POST, PUT and DELETE, to execute the actions that you need.\r ## Installation\r To run the API we need to do some things first set the API settings and set the DB in your local.\r #### Requirements\r This API work over **Node.js**, version ``10.16.3``  \r If  you don't have it, here is the link to download [Node.js](https://nodejs.org/es/)",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/luiscarlosbts/back-end.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/luiscarlosbts/back-end/issues"
-  },
-  "homepage": "https://github.com/luiscarlosbts/back-end#readme",
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^6.2.1"
-  },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "chai-http": "^4.3.0",
-    "dotenv": "^8.1.0",
-    "express": "^4.17.1",
-    "log4js": "^5.2.1",
-    "pg": "^7.12.1"
-  }
+    "name": "back-end",
+    "version": "1.0.0",
+    "description": "API_BTS Admin is an API to get information from a database. Through the endpoints you can retrieve information for the different tables. Also you can use the HTTP methods like GET, POST, PUT and DELETE, to execute the actions that you need.\r ## Installation\r To run the API we need to do some things first set the API settings and set the DB in your local.\r #### Requirements\r This API work over **Node.js**, version ``10.16.3``  \r If  you don't have it, here is the link to download [Node.js](https://nodejs.org/es/)",
+    "main": "index.js",
+    "directories": {
+        "test": "tests"
+    },
+    "config": {
+        "password": "Savant32"
+    },
+    "scripts": {
+        "test": "mocha",
+        "db": "psql \"dbname=postgres user=postgres password=$npm_package_config_password host=localhost\" < ./scripts/set_up_schema_script.sql || psql \"dbname=postgres user=postgres password=%npm_package_config_password% host=localhost\" < ./scripts/set_up_schema_script.sql",
+        "clean": "psql \"dbname=postgres user=postgres password=$npm_package_config_password host=localhost\" < ./scripts/clean_schema_script.sql || psql \"dbname=postgres user=postgres password=%npm_package_config_password% host=localhost\" < ./scripts/clean_schema_script.sql"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/luiscarlosbts/back-end.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/luiscarlosbts/back-end/issues"
+    },
+    "homepage": "https://github.com/luiscarlosbts/back-end#readme",
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "mocha": "^6.2.1"
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "chai-http": "^4.3.0",
+        "dotenv": "^8.1.0",
+        "express": "^4.17.1",
+        "log4js": "^5.2.1",
+        "pg": "^7.12.1"
+    }
 }
